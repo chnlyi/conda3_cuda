@@ -24,7 +24,7 @@ RUN	/opt/conda/bin/conda install jupyter jupyterlab -y --quiet
 
 RUN /opt/conda/bin/conda create -n py37 python=3.7 anaconda ipykernel --yes &&\
     /opt/conda/bin/conda activate py37 &&\
-    python -m ipykernel install --user --name py37 --display-name "py37"
+    python -m ipykernel install --user --name py37 --display-name "py37" &&\
     /opt/conda/bin/conda clean -tipsy && \
 
 ENV TINI_VERSION v0.16.1
