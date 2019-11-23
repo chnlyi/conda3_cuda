@@ -20,12 +20,11 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.5.11-Linux-x86
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 	
-RUN	/opt/conda/bin/conda install jupyter jupyterlab -y --quiet
-
-RUN /opt/conda/bin/conda create -n py37 python=3.7 anaconda ipykernel --yes &&\
-    /opt/conda/bin/conda activate py37 &&\
-    python -m ipykernel install --user --name py37 --display-name "py37" &&\
-    /opt/conda/bin/conda clean -tipsy && \
+RUN conda install jupyter jupyterlab -y --quiet && \
+    conda create -n py37 python=3.7 anaconda ipykernel --yes && \
+    conda activate py37 && \
+    python -m ipykernel install --user --name py37 --display-name "py37" && \
+    conda clean -tipsy
 
 ENV TINI_VERSION v0.16.1
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
