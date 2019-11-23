@@ -17,7 +17,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 	
 RUN conda install jupyter jupyterlab -y --quiet && \
     conda create -n py37 python=3.7 anaconda ipykernel --yes && \
-    conda activate py37 && \
+    echo "conda activate py37" >> ~/.bashrc && \
     python -m ipykernel install --user --name py37 --display-name "py37" && \
     conda clean -tipsy
 
