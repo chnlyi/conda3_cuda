@@ -11,16 +11,14 @@ RUN apt-get update --fix-missing && \
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh && \
-    conda clean -tipsy && \
-    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
-    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "conda activate base" >> ~/.bashrc && \
-    conda install jupyter jupyterlab -y --quiet && \
-    conda create -n py37 python=3.7 anaconda ipykernel tensorflow-gpu pytorch --yes
-
-RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "conda activate py37" >> ~/.bashrc && \
-    python -m ipykernel install --user --name py37 --display-name "py37" 
+    
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
+    rm ~/miniconda.sh && \
+    conda install jupyter jupyterlab conda-build -y --quiet && \
+    conda create -n py37 python=3.7 anaconda tensorflow-gpu pytorch --yes && \
+    /opt/conda/envs/py37/bin/python -m ipykernel install --user --name py37 --display-name "py37" && \
+    conda build purge-all    
     
 ENV TINI_VERSION v0.16.1
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
@@ -28,4 +26,3 @@ RUN chmod +x /usr/bin/tini
 
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "/bin/bash" ]
-
