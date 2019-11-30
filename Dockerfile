@@ -1,10 +1,10 @@
-FROM nvidia/cuda:10.1-runtime
+FROM nvidia/cuda:10.2-cudnn7-devel
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 
 RUN apt-get update --fix-missing && \
-    apt-get install -y wget bzip2 ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 git mercurial subversion && \
+    apt-get install -y wget bzip2 ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 git mercurial subversion gcc && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
     
