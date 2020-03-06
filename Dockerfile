@@ -18,14 +18,14 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
     rm ~/miniconda.sh &&\
     echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
     . ~/.bashrc && \
-    conda install jupyter jupyterlab conda-build nodejs -y --quiet && \
+    /bin/bash -c "conda install jupyter jupyterlab conda-build nodejs -y" --quiet && \
     ~/miniconda3/bin/jupyter nbextension enable --py widgetsnbextension && \
     ~/miniconda3/bin/jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
-    conda create -n py37 python=3.7 anaconda tensorflow-gpu pytorch --yes && \
+    /bin/bash -c "conda create -n py37 python=3.7 anaconda tensorflow-gpu pytorch" --yes && \
     ~/miniconda3/envs/py37/bin/python -m ipykernel install --user --name py37 --display-name "py37" && \
     find ~/miniconda3/ -follow -type f -name '*.a' -delete && \
     find ~/miniconda3/ -follow -type f -name '*.js.map' -delete && \
-    conda build purge-all
+    /bin/bash -c "conda build purge-all"
 	
 ENV TINI_VERSION v0.16.1
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
