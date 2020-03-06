@@ -12,6 +12,8 @@ RUN adduser liang && \
     echo "liang ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/liang && \
     chmod 0440 /etc/sudoers.d/liang
   
+USER liang
+
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p ~/miniconda3 && \
     rm ~/miniconda.sh && \
