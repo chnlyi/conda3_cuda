@@ -17,7 +17,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
     /bin/bash ~/miniconda.sh -b -p ~/miniconda3 && \
     rm ~/miniconda.sh &&\
     echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    /bin/bash/source ~/.bashrc && \
+    . ~/.bashrc && \
     conda install jupyter jupyterlab conda-build nodejs -y --quiet && \
     ~/miniconda3/bin/jupyter nbextension enable --py widgetsnbextension && \
     ~/miniconda3/bin/jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
