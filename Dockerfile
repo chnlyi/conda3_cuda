@@ -16,13 +16,9 @@ USER liang
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p ~/miniconda3 && \
     rm ~/miniconda.sh &&\
-    echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
-    
-USER root
-RUN source /home/liang/.bashrc
-
-USER liang
-RUN conda install jupyter jupyterlab conda-build nodejs -y --quiet && \
+    echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    /bin/bash/source ~/.bashrc && \
+    conda install jupyter jupyterlab conda-build nodejs -y --quiet && \
     ~/miniconda3/bin/jupyter nbextension enable --py widgetsnbextension && \
     ~/miniconda3/bin/jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
     conda create -n py37 python=3.7 anaconda tensorflow-gpu pytorch --yes && \
