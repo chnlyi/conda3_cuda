@@ -15,13 +15,9 @@ RUN adduser liang && \
 USER liang
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p ~/miniconda3 && \
-    rm ~/miniconda.sh 
-
-USER root
-RUN ln -s /home/liang/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
-
-USER liang
-RUN echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    rm ~/miniconda.sh &&\
+    echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    source ~/.bashrc && \
     conda install jupyter jupyterlab conda-build nodejs -y --quiet && \
     ~/miniconda3/bin/jupyter nbextension enable --py widgetsnbextension && \
     ~/miniconda3/bin/jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
